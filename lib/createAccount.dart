@@ -12,7 +12,7 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccount> {
   // use controller to show what user typed
-  final _textController = TextEditingController();
+  // final _textController = TextEditingController();
 
   String userNameEntry = '';
   String greeting = '';

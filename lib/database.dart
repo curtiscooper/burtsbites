@@ -1,3 +1,5 @@
+import 'package:burtsbites/models/product.dart';
+import 'package:burtsbites/models/user.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -82,5 +84,52 @@ class DatabaseService {
         "password": password,
       },
     );
+  }
+
+  void addProduct(
+    int productID,
+    String productName,
+    String productDesc,
+    double productPrice,
+  ) async {
+    final db = await database;
+    await db.insert(
+      "products",
+      {
+        "productID": productID,
+        "productName": productName,
+        "productDesc": productDesc,
+        "productPrice": productPrice,
+      },
+    );
+  }
+
+  Future<List<Product>> getProducts() async {
+    final db = await database;
+    final data = await db.query("products");
+    print(data);
+    List<Product> products = data
+        .map((e) => Product(
+            productID: e["productID"] as int,
+            productName: e["productName"] as String,
+            productDesc: e["productDesc"] as String,
+            productPrice: e["productPrice"] as double))
+        .toList();
+    return products;
+  }
+
+  Future<List<User>> getUsers() async {
+    final db = await database;
+    final data = await db.query("users");
+    print(data);
+    List<User> users = data
+        .map((e) => User(
+            userID: e["userID"] as int,
+            username: e["username"] as String,
+            firstName: e["firstName"] as String,
+            lastName: e["lastName"] as String,
+            password: e["password"] as String))
+        .toList();
+    return users;
   }
 }

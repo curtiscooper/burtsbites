@@ -1,3 +1,5 @@
+import 'package:burtsbites/database.dart';
+import 'package:burtsbites/models/user.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -9,10 +11,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   // use controller to show what user typed
-  final _textController = TextEditingController();
+
+    final DatabaseService _databaseService = DatabaseService.instance;
+  // final _textController = TextEditingController();
 
   String userNameEntry = '';
   String greeting = '';
+  String? _username = null;
+  String? _password = null;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,9 @@ class _LoginState extends State<Login> {
       ),
       body: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
+          child: 
+          Column(
+            
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Display text
@@ -35,17 +43,32 @@ class _LoginState extends State<Login> {
               ),
 
               TextField(
-                controller: _textController,
+                  onChanged: (value) {
+                    setState(() {
+                      _username = value;
+                    });
+                  },                
+                // controller: _textController,
                 decoration: InputDecoration(
-                    hintText: 'What is your name?',
-                    border: OutlineInputBorder()),
+                    hintText: 'Username', border: OutlineInputBorder()),
+              ),
+              TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      _password = value;
+                    });
+                  },                       
+                // controller: _textController,
+                decoration: InputDecoration(
+                    hintText: 'Password', border: OutlineInputBorder()),
               ),
               MaterialButton(
                 onPressed: () {
                   // Update userName string with text box contents
                   setState(() {
-                    userNameEntry = _textController.text;
-                    greeting = 'Hello Hoser $userNameEntry';
+                    // userNameEntry = _textController.text;
+                    userNameEntry = _username! + " " + _password!;                    
+                    greeting = 'Hello $userNameEntry';
                   });
                 },
                 color: Colors.blue,
@@ -58,4 +81,6 @@ class _LoginState extends State<Login> {
           )),
     );
   }
+
+
 }

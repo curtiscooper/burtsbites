@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:burtsbites/createAccount.dart';
 import 'package:burtsbites/login.dart';
 import 'package:burtsbites/products.dart';
+import 'package:burtsbites/showusers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -196,6 +197,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                 ),                                
+              MaterialButton(
+                  color: Colors.blue,
+                  child: const Text("Show Users",
+                      style: TextStyle(
+                          color: Colors.white70, fontWeight: FontWeight.bold)),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ShowUsers()),
+                    );
+                  },
+                ),                       
             ],
           ),
         ));
