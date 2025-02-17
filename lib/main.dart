@@ -3,15 +3,14 @@ import 'dart:io';
 import 'package:burtsbites/createAccount.dart';
 import 'package:burtsbites/login.dart';
 import 'package:burtsbites/products.dart';
+import 'package:burtsbites/profile.dart';
 import 'package:burtsbites/showusers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -23,21 +22,21 @@ void main() {
 //   final int age;
 //   final String country;
 //   final String? email;
- 
+
 //   User(
 //       { this.id,
 //       required this.name,
 //       required this.age,
 //       required this.country,
 //       this.email});
- 
+
 //   User.fromMap(Map<String, dynamic> res)
 //       : id = res["id"],
 //         name = res["name"],
 //         age = res["age"],
 //         country = res["country"],
 //         email = res["email"];
- 
+
 //   Map<String, Object?> toMap() {
 //     return {'id':id,'name': name, 'age': age, 'country': country, 'email': email};
 //   }
@@ -54,7 +53,6 @@ void main() {
 //   join(await getDatabasesPath(), 'userdata.db'),
 // );
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -62,7 +60,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Burts Bites',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -82,7 +80,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Burts Bites'),
     );
   }
 }
@@ -106,111 +104,168 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  File? image;
-  Future pickImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemp = File(image.path);
-
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
-  }
-
-  Future pickImageCamera() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      if (image == null) return;
-      final imageTemp = File(image.path);
-
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    final DeviceOrientation = MediaQuery.of(context).orientation;
+    print(DeviceOrientation);
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Image Picker Example"),
+          title: const Text("Burts Bites"),
         ),
         body: Center(
-          child: Column(
-            children: [
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Pick Image from Gallery",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    pickImage();
-                  }),
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Pick Image from Camera",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    pickImageCamera();
-                  }),
-              SizedBox(
-                height: 30,
-              ),
-              image != null ? Image.file(image!) : Text('No image selected'),
+            child: DeviceOrientation == Orientation.portrait
+                ? displayPortrait()
+                : displayLandscape()));
+  }
+}
 
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Login",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login()),
-                    );
-                  },
-                ),           
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Products",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Products()),
-                    );
-                  },
-                ),                 
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Create Account",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CreateAccount()),
-                    );
-                  },
-                ),                                
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Show Users",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ShowUsers()),
-                    );
-                  },
-                ),                       
-            ],
-          ),
-        ));
+class displayPortrait extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // MaterialButton(
+        //     color: Colors.blue,
+        //     child: const Text("Pick Image from Gallery",
+        //         style: TextStyle(
+        //             color: Colors.white70, fontWeight: FontWeight.bold)),
+        //     onPressed: () {
+        //       pickImage();
+        //     }),
+        // MaterialButton(
+        //     color: Colors.blue,
+        //     child: const Text("Pick Image from Camera",
+        //         style: TextStyle(
+        //             color: Colors.white70, fontWeight: FontWeight.bold)),
+        //     onPressed: () {
+        //       pickImageCamera();
+        //     }),
+        SizedBox(
+          height: 30,
+        ),
+        // image != null ? Image.file(image!) : Text('No image selected'),
+
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Login",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+            );
+          },
+        ),
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Products",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Products()),
+            );
+          },
+        ),
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Create Account",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreateAccount()),
+            );
+          },
+        ),
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Show Users",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ShowUsers()),
+            );
+          },
+        ),
+
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("My Profile",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Profile()),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+
+
+class displayLandscape extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        // MaterialButton(
+        //     color: Colors.blue,
+        //     child: const Text("Pick Image from Gallery",
+        //         style: TextStyle(
+        //             color: Colors.white70, fontWeight: FontWeight.bold)),
+        //     onPressed: () {
+        //       pickImage();
+        //     }),
+        // MaterialButton(
+        //     color: Colors.blue,
+        //     child: const Text("Pick Image from Camera",
+        //         style: TextStyle(
+        //             color: Colors.white70, fontWeight: FontWeight.bold)),
+        //     onPressed: () {
+        //       pickImageCamera();
+        //     }),
+        SizedBox(
+          height: 30,
+        ),
+        // image != null ? Image.file(image!) : Text('No image selected'),
+
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Login",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+            );
+          },
+        ),
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Products",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Products()),
+            );
+          },
+        ),
+
+      ],
+    );
   }
 }

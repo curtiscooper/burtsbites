@@ -4,7 +4,6 @@ import 'package:burtsbites/database.dart';
 import 'package:burtsbites/models/product.dart';
 import 'package:flutter/material.dart';
 
-
 class Products extends StatefulWidget {
   const Products({Key? key}) : super(key: key);
 
@@ -21,6 +20,7 @@ class _ProductsState extends State<Products> {
   String? _productname = null;
   String? _productdesc = null;
   double? _productprice = 0;
+  String? _productimage = null;
 
   @override
   Widget build(BuildContext context) {
@@ -118,12 +118,22 @@ class _ProductsState extends State<Products> {
                         hintText: 'Product Price',
                         border: OutlineInputBorder()),
                   ),
+                  TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        _productimage = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                        hintText: 'Product Image',
+                        border: OutlineInputBorder()),
+                  ),
                   MaterialButton(
                       color: Colors.blue,
                       onPressed: () {
                         if (_productname == null || _productname == "") return;
                         _databaseService.addProduct(_productid!, _productname!,
-                            _productdesc!, _productprice!);
+                            _productdesc!, _productprice!, _productimage!);
                         setState(
                           () {
                             _productname = null;

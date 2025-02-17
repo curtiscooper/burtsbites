@@ -81,6 +81,28 @@ class _LoginState extends State<Login> {
           )),
     );
   }
+                
+
+
+  Widget _usersList() {
+    return FutureBuilder(
+      future: _databaseService.getUsers(),
+      builder: (userName, snapshot) {
+        // return Container();
+        return ListView.builder(
+          itemCount: snapshot.data?.length ?? 0,
+          itemBuilder: (userName, index) {
+            User user = snapshot.data![index];
+            return ListTile(
+              title: Text(
+                "${user.userName}  ${user.firstName} ${user.lastName}",
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 
 
 }

@@ -19,7 +19,7 @@ class DatabaseService {
 
   Future<Database> getDatabase() async {
     final databaseDirPath = await getDatabasesPath();
-    final databasePath = join(databaseDirPath, "ict4580.db");
+    final databasePath = join(databaseDirPath, "ict4580-2.db");
     print(databasePath);
     final database = await openDatabase(
       databasePath,
@@ -31,7 +31,8 @@ class DatabaseService {
                 firstName char (15) NOT NULL,
                 lastName char (15) NOT NULL,
                 userName char (13) NOT NULL,
-                password char (13) NOT NULL
+                password char (13) NOT NULL,
+                avatar char
               )
          ''');
         db.execute('''
@@ -39,7 +40,8 @@ class DatabaseService {
                 productID INTEGER PRIMARY KEY NOT NULL,
                 productName char (55) NOT NULL,
                 productDesc char (255) NOT NULL,
-                productPrice float NOT NULL
+                productPrice float NOT NULL,
+                productImage char
                 )
          ''');
 
@@ -72,6 +74,7 @@ class DatabaseService {
     String firstName,
     String lastName,
     String password,
+    String avatar,
   ) async {
     final db = await database;
     await db.insert(
@@ -82,6 +85,7 @@ class DatabaseService {
         "firstName": firstName,
         "lastName": lastName,
         "password": password,
+        "avatar": avatar,
       },
     );
   }
@@ -91,8 +95,17 @@ class DatabaseService {
     String productName,
     String productDesc,
     double productPrice,
+    String productImage,
   ) async {
     final db = await database;
+    // db.execute('''
+    //      ALTER TABLE users
+    //      ADD avatar char
+    //      ''');
+
+    // db.execute('''
+    //      DELETE from users where userID = 1
+    //      ''');
     await db.insert(
       "products",
       {
@@ -100,6 +113,7 @@ class DatabaseService {
         "productName": productName,
         "productDesc": productDesc,
         "productPrice": productPrice,
+        "productImage": productImage,
       },
     );
   }
@@ -113,7 +127,8 @@ class DatabaseService {
             productID: e["productID"] as int,
             productName: e["productName"] as String,
             productDesc: e["productDesc"] as String,
-            productPrice: e["productPrice"] as double))
+            productPrice: e["productPrice"] as double,
+            productImage: e["productImage"] as String))
         .toList();
     return products;
   }
@@ -125,11 +140,56 @@ class DatabaseService {
     List<User> users = data
         .map((e) => User(
             userID: e["userID"] as int,
-            username: e["username"] as String,
+            userName: e["userName"] as String,
             firstName: e["firstName"] as String,
             lastName: e["lastName"] as String,
-            password: e["password"] as String))
+            password: e["password"] as String,
+            avatar: e["avatar"] as String))
         .toList();
     return users;
+  }
+
+  Future<List<User>> getUser(int userID,) async {
+    final db = await database;
+    final data = await db.query("users",
+          where: 'userID = ?',
+            whereArgs: [
+              userID,
+            ],);
+    print(data);
+    List<User> user = data
+        .map((e) => User(
+            userID: e["userID"] as int,
+            userName: e["userName"] as String,
+            firstName: e["firstName"] as String,
+            lastName: e["lastName"] as String,
+            password: e["password"] as String,
+            avatar: e["avatar"] as String))
+        .toList();
+    return user;
+  }
+
+  void updateUser(int userID, String username, String firstName, String lastName,
+      String password, String avatar) async {
+    final db = await database;
+    await db.update(
+      "users", {
+        "userID": userID,
+        "userName": username,
+        "firstName": firstName,
+        "lastName": lastName,
+        "password": password,
+        "avatar": avatar,        
+      },
+      where: 'userID = ?',
+      whereArgs: [
+        userID,
+      ],
+    );
+  }
+
+  Future close() async {
+    final db = await database;
+    db.close();
   }
 }
