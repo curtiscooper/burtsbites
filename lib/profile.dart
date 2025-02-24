@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'globals.dart' as globals;
+
 import 'package:burtsbites/database.dart';
 import 'package:burtsbites/models/user.dart';
 import 'package:burtsbites/myorders.dart';
@@ -51,6 +53,7 @@ class _ProfileState extends State<Profile> {
       print('Failed to pick image: $e');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,11 +73,8 @@ class _ProfileState extends State<Profile> {
               //     ),
               //   ),
               // ),
-              // image != null ? Image.file(image!) : Text('No image selected') 
-              Image.asset(
-                'assets/$_avatar',
-                width: 100,
-                height: 100),                          
+              // image != null ? Image.file(image!) : Text('No image selected')
+              Image.asset('assets/$_avatar', width: 100, height: 100),
               TextField(
                 onChanged: (value) {
                   setState(() {
@@ -171,21 +171,33 @@ class _ProfileState extends State<Profile> {
                     pickImageCamera();
                   }),
               MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("My Orders",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyOrders()),
-                    );
-                  },
-                ),                         
+                color: Colors.blue,
+                child: const Text("My Orders",
+                    style: TextStyle(
+                        color: Colors.white70, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  print("${globals.username}");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyOrders(
+                      useridin: globals.userid.toString(),
+                    )),
+                  );
+                },
+              ),
+
+              MaterialButton(
+                color: Colors.red,
+                child: const Text("DB Execute",
+                    style: TextStyle(
+                        color: Colors.white70, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  _databaseService.executeStatement();
+                },
+              ),
               // SizedBox(
               //   height: 30,
               // ),
-
             ],
           )),
     );
@@ -202,7 +214,7 @@ class _ProfileState extends State<Profile> {
             User user = snapshot.data![index];
             return ListTile(
               title: Text(
-                user.avatar,
+                "${user.userName}  ${user.firstName} ${user.lastName}",
               ),
             );
           },

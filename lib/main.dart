@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:burtsbites/cart.dart';
 import 'package:burtsbites/createAccount.dart';
 import 'package:burtsbites/login.dart';
+import 'package:burtsbites/loginscreen.dart';
 import 'package:burtsbites/products.dart';
 import 'package:burtsbites/profile.dart';
 import 'package:burtsbites/showusers.dart';
@@ -154,7 +156,7 @@ class displayPortrait extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Login()),
+              MaterialPageRoute(builder: (context) => LoginScreen()),
             );
           },
         ),
@@ -204,6 +206,19 @@ class displayPortrait extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Profile()),
+            );
+          },
+        ),
+
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Cart",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Cart()),
             );
           },
         ),
@@ -264,7 +279,56 @@ class displayLandscape extends StatelessWidget {
             );
           },
         ),
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Create Account",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreateAccount()),
+            );
+          },
+        ),
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Show Users",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ShowUsers()),
+            );
+          },
+        ),
 
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("My Profile",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Profile()),
+            );
+          },
+        ),
+
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Cart",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Cart()),
+            );
+          },
+        ),        
       ],
     );
   }

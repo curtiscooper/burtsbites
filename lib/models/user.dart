@@ -1,17 +1,17 @@
 class User {
-  final int userID;
+  final int? userID;
   final String userName;
-  final String firstName;
-  final String lastName;
+  final String? firstName;
+  final String? lastName;
   final String password;
-  final String avatar;
+  final String? avatar;
 
   User({
-    required this.userID,
+    this.userID,
     required this.userName,
-    required this.firstName,
-    required this.lastName,
+    this.firstName,
+    this.lastName,
     required this.password,
-    required this.avatar,
+    this.avatar,
   });
 }
