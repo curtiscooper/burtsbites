@@ -7,3 +7,5 @@ bool isLoggedIn = true;
 String? username;
 int? userid;
 String? useravatar;
+String? firstname;
+String? lastname;

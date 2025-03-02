@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:burtsbites/cart.dart';
 import 'package:burtsbites/createAccount.dart';
+import 'package:burtsbites/giftcard.dart';
 import 'package:burtsbites/login.dart';
 import 'package:burtsbites/loginscreen.dart';
 import 'package:burtsbites/products.dart';
@@ -9,10 +10,13 @@ import 'package:burtsbites/profile.dart';
 import 'package:burtsbites/showusers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 void main() {
   runApp(const MyApp());
@@ -222,7 +226,37 @@ class displayPortrait extends StatelessWidget {
             );
           },
         ),
-      ],
+
+
+
+
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Get your gift card",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () async {
+            final url = 'http://192.168.50.85/ict4580/registration.html';
+
+              await launchUrlString(url);
+          },
+        ),
+
+
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Call Customer Support",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () async {
+            final url = 'tel:910-555-1212';
+
+              await launchUrlString(url);
+          },
+        ),
+
+
+      ], // Children
     );
   }
 }

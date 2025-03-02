@@ -291,6 +291,8 @@ class DatabaseService {
       ) async {
     final db = await database;
 
+// db.execute('''insert into orderedProducts values(1, 6, 2, 1)''');
+
     // orders (orderId, userId, orderDate, orderTotal)
 
     // db.execute('''
@@ -330,18 +332,18 @@ class DatabaseService {
 
 //  orderedProducts (orderedID,orderID,userID,productID)
 
-    db.execute('''insert into orderedProducts values(1, 6, 2, 1)''');
-    db.execute('''insert into orderedProducts values(2, 6, 2, 2)''');
-    db.execute('''insert into orderedProducts values(3, 6, 2, 3)''');
-    db.execute('''insert into orderedProducts values(4, 1, 1, 1)''');
-    db.execute('''insert into orderedProducts values(5, 1, 1, 1)''');
-    db.execute('''insert into orderedProducts values(6, 1, 1, 1)''');
-    db.execute('''insert into orderedProducts values(7, 2, 1, 1)''');
-    db.execute('''insert into orderedProducts values(8, 2, 1, 2)''');
-    db.execute('''insert into orderedProducts values(9, 2, 1, 2)''');
-    db.execute('''insert into orderedProducts values(10, 7, 2, 2)''');
-    db.execute('''insert into orderedProducts values(11, 7, 2, 3)''');
-    db.execute('''insert into orderedProducts values(12, 1, 1, 3)''');
+    // db.execute('''insert into orderedProducts values(1, 6, 2, 1)''');
+    // db.execute('''insert into orderedProducts values(2, 6, 2, 2)''');
+    // db.execute('''insert into orderedProducts values(3, 6, 2, 3)''');
+    // db.execute('''insert into orderedProducts values(4, 1, 1, 1)''');
+    // db.execute('''insert into orderedProducts values(5, 1, 1, 1)''');
+    // db.execute('''insert into orderedProducts values(6, 1, 1, 1)''');
+    // db.execute('''insert into orderedProducts values(7, 2, 1, 1)''');
+    // db.execute('''insert into orderedProducts values(8, 2, 1, 2)''');
+    // db.execute('''insert into orderedProducts values(9, 2, 1, 2)''');
+    // db.execute('''insert into orderedProducts values(10, 7, 2, 2)''');
+    // db.execute('''insert into orderedProducts values(11, 7, 2, 3)''');
+    // db.execute('''insert into orderedProducts values(12, 1, 1, 3)''');
         
 
 

@@ -2,6 +2,8 @@ import 'dart:ffi';
 
 import 'package:burtsbites/database.dart';
 import 'package:burtsbites/models/product.dart';
+import 'package:burtsbites/productDetail.dart';
+import 'package:burtsbites/profile.dart';
 import 'package:flutter/material.dart';
 
 class Products extends StatefulWidget {
@@ -164,12 +166,26 @@ class _ProductsState extends State<Products> {
         // return Container();
         return ListView.builder(
           itemCount: snapshot.data?.length ?? 0,
-          itemBuilder: (productName, index) {
+          itemBuilder: (context, index) {
             Product product = snapshot.data![index];
             return ListTile(
-              title: Text(
-                "${product.productName}  ${product.productPrice}",
+              title: Text("${product.productName}  ${product.productPrice}"),
+              leading: SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.asset('assets/${product.productImage}',
+                    width: 100, height: 100),
               ),
+              onTap: () {
+                Navigator.of(context).push(
+
+                    MaterialPageRoute(builder: (context) => ProductDetail(
+                      imageName: product.productImage,
+                      productName: product.productName,
+                      productDescription: product.productDesc,                      
+                      ))                
+                );
+              },
             );
           },
         );

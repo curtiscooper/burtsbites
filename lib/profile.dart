@@ -74,7 +74,12 @@ class _ProfileState extends State<Profile> {
               //   ),
               // ),
               // image != null ? Image.file(image!) : Text('No image selected')
+              Expanded(
+                child: _userList(),
+              ),
               Image.asset('assets/$_avatar', width: 100, height: 100),
+              Text(_firstname.toString()),
+
               TextField(
                 onChanged: (value) {
                   setState(() {
@@ -83,7 +88,8 @@ class _ProfileState extends State<Profile> {
                 },
                 // controller: _textController,
                 decoration: InputDecoration(
-                    hintText: 'User ID', border: OutlineInputBorder()),
+                    hintText: globals.userid.toString(),
+                    border: OutlineInputBorder()),
               ),
               TextField(
                 onChanged: (value) {
@@ -179,9 +185,10 @@ class _ProfileState extends State<Profile> {
                   print("${globals.username}");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyOrders(
-                      useridin: globals.userid.toString(),
-                    )),
+                    MaterialPageRoute(
+                        builder: (context) => MyOrders(
+                              useridin: globals.userid.toString(),
+                            )),
                   );
                 },
               ),
@@ -205,13 +212,19 @@ class _ProfileState extends State<Profile> {
 
   Widget _userList() {
     return FutureBuilder(
-      future: _databaseService.getUser(_userid!),
+      future: _databaseService.getUser(globals.userid!),
       builder: (userName, snapshot) {
         // return Container();
         return ListView.builder(
           itemCount: snapshot.data?.length ?? 0,
           itemBuilder: (userName, index) {
             User user = snapshot.data![index];
+
+            _avatar = user.avatar;
+            _firstname = user.firstName;
+            _lastname = user.lastName;
+            _userid = user.userID;
+
             return ListTile(
               title: Text(
                 "${user.userName}  ${user.firstName} ${user.lastName}",
