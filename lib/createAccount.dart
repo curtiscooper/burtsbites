@@ -25,7 +25,7 @@ class _CreateAccountState extends State<CreateAccount> {
   String? _firstname = null;
   String? _lastname = null;
   String? _password = null;
-  String? _avatar = "none";
+  String? _avatar = "blankprofile.jpg";
 
   @override
   Widget build(BuildContext context) {

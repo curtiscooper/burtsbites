@@ -138,7 +138,7 @@ class DatabaseService {
   Future<List<User>> getUsers() async {
     final db = await database;
     final data = await db.query("users");
-    // print(data);
+    print(data);
     List<User> users = data
         .map((e) => User(
             userID: e["userID"] as int,
@@ -221,7 +221,7 @@ class DatabaseService {
         userID,
       ],
     );
-    print(data);
+    // print(data);
     List<User> user = data
         .map((e) => User(
             userID: e["userID"] as int,
@@ -291,6 +291,7 @@ class DatabaseService {
       ) async {
     final db = await database;
 
+
 // db.execute('''insert into orderedProducts values(1, 6, 2, 1)''');
 
     // orders (orderId, userId, orderDate, orderTotal)
@@ -353,7 +354,7 @@ class DatabaseService {
     //      ''');
 
     // db.execute('''
-    //      DELETE from users where userID = 1
+    //      DELETE from users where userID = 4
     //      ''');
   }
 }

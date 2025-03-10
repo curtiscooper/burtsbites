@@ -27,7 +27,7 @@ class _ProfileState extends State<Profile> {
   String? _firstname = null;
   String? _lastname = null;
   String? _password = null;
-  String? _avatar = 'blankprofile.jpg';
+  String? _avatar = "blankprofile.jpg";
 
   File? image;
   Future pickImage() async {
@@ -77,105 +77,244 @@ class _ProfileState extends State<Profile> {
               Expanded(
                 child: _userList(),
               ),
-              Image.asset('assets/$_avatar', width: 100, height: 100),
-              Text(_firstname.toString()),
+              // Image.asset('assets/$_avatar', width: 100, height: 100),
+              // Text(_firstname.toString()),
 
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    _userid = int.parse(value);
-                  });
-                },
-                // controller: _textController,
-                decoration: InputDecoration(
-                    hintText: globals.userid.toString(),
-                    border: OutlineInputBorder()),
-              ),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    _username = value;
-                  });
-                },
-                // controller: _textController,
-                decoration: InputDecoration(
-                    hintText: 'Username', border: OutlineInputBorder()),
-              ),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    _password = value;
-                  });
-                },
-                // controller: _textController,
-                decoration: InputDecoration(
-                    hintText: 'Password', border: OutlineInputBorder()),
-              ),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    _firstname = value;
-                  });
-                },
-                // controller: _textController,
-                decoration: InputDecoration(
-                    hintText: 'First Name', border: OutlineInputBorder()),
-              ),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    _lastname = value;
-                  });
-                },
-                // controller: _textController,
-                decoration: InputDecoration(
-                    hintText: 'Last Name', border: OutlineInputBorder()),
-              ),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    _avatar = value;
-                  });
-                },
-                // controller: _textController,
-                decoration: InputDecoration(
-                    hintText: 'Avatar', border: OutlineInputBorder()),
-              ),
+              // TextField(
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _userid = int.parse(value);
+              //     });
+              //   },
+              //   // controller: _textController,
+              //   decoration: InputDecoration(
+              //       hintText: globals.userid.toString(),
+              //       border: OutlineInputBorder()),
+              // ),
+              // TextField(
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _username = value;
+              //     });
+              //   },
+              //   // controller: _textController,
+              //   decoration: InputDecoration(
+              //       hintText: 'Username', border: OutlineInputBorder()),
+              // ),
+              // TextField(
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _password = value;
+              //     });
+              //   },
+              //   // controller: _textController,
+              //   decoration: InputDecoration(
+              //       hintText: 'Password', border: OutlineInputBorder()),
+              // ),
+              // TextField(
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _firstname = value;
+              //     });
+              //   },
+              //   // controller: _textController,
+              //   decoration: InputDecoration(
+              //       hintText: 'First Name', border: OutlineInputBorder()),
+              // ),
+              // TextField(
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _lastname = value;
+              //     });
+              //   },
+              //   // controller: _textController,
+              //   decoration: InputDecoration(
+              //       hintText: 'Last Name', border: OutlineInputBorder()),
+              // ),
+              // TextField(
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _avatar = value;
+              //     });
+              //   },
+              //   // controller: _textController,
+              //   decoration: InputDecoration(
+              //       hintText: 'Avatar', border: OutlineInputBorder()),
+              // ),
+              // MaterialButton(
+              //   onPressed: () {
+              //     // Update userName string with text box contents
+              //     _databaseService.updateUser(_userid!, _username!, _firstname!,
+              //         _lastname!, _password!, _avatar!);
+              //     setState(() {
+              //       // userNameEntry = _textController.text;
+              //       // userNameEntry = _username! + " " + _password!;
+              //       // greeting = 'Hello $userNameEntry';
+              //     });
+              //   },
+              //   color: Colors.blue,
+              //   child: Text(
+              //     'Submit',
+              //     style: TextStyle(color: Colors.white),
+              //   ),
+              // ),
               MaterialButton(
-                onPressed: () {
-                  // Update userName string with text box contents
-                  _databaseService.updateUser(_userid!, _username!, _firstname!,
-                      _lastname!, _password!, _avatar!);
-                  setState(() {
-                    // userNameEntry = _textController.text;
-                    // userNameEntry = _username! + " " + _password!;
-                    // greeting = 'Hello $userNameEntry';
-                  });
-                },
                 color: Colors.blue,
-                child: Text(
-                  'Submit',
-                  style: TextStyle(color: Colors.white),
-                ),
+                child: const Text("Update Profile",
+                    style: TextStyle(
+                        color: Colors.white70, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                        title: const Text('Update Profile'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // TextField(
+                            //   onChanged: (value) {
+                            //     setState(() {
+                            //       _userid = int.parse(value);
+                            //     });
+                            //   },
+                            //   // controller: _textController,
+                            //   decoration: InputDecoration(
+                            //       hintText: globals.userid.toString(),
+                            //       border: OutlineInputBorder()),
+                            // ),
+                            TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  _username = value;
+                                });
+                              },
+                              // controller: _textController,
+                              decoration: InputDecoration(
+                                  hintText: globals.username,
+                                  border: OutlineInputBorder()),
+                            ),
+                            TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  _password = value;
+                                  globals.password = value;
+                                  _username = globals.username;
+                                  _userid = globals.userid;
+                                  _firstname = globals.firstname;
+                                  _lastname = globals.lastname;
+                                  _avatar = globals.useravatar;
+                                });
+                              },
+                              // controller: _textController,
+                              decoration: InputDecoration(
+                                  hintText: 'Password',
+                                  border: OutlineInputBorder()),
+                            ),
+                            TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  _firstname = value;
+                                  globals.firstname = value;
+                                  _username = globals.username;
+                                  _userid = globals.userid;
+                                  _lastname = globals.lastname;
+                                  _password = globals.password;
+                                  _avatar = globals.useravatar;
+                                });
+                              },
+                              // controller: _textController,
+                              decoration: InputDecoration(
+                                  hintText: globals.firstname,
+                                  border: OutlineInputBorder()),
+                            ),
+                            TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  _lastname = value;
+                                  globals.lastname = value;
+                                  _username = globals.username;
+                                  _userid = globals.userid;
+                                  _firstname = globals.firstname;
+                                  _password = globals.password;
+                                  _avatar = globals.useravatar;
+                                });
+                              },
+                              // controller: _textController,
+                              decoration: InputDecoration(
+                                  hintText: globals.lastname,
+                                  border: OutlineInputBorder()),
+                            ),
+                            TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  _avatar = value;
+                                  globals.useravatar = value;
+                                  _username = globals.username;
+                                  _userid = globals.userid;
+                                  _firstname = globals.firstname;
+                                  _lastname = globals.lastname;
+                                  _password = globals.password;
+                                });
+                              },
+                              // controller: _textController,
+                              decoration: InputDecoration(
+                                  hintText: globals.useravatar,
+                                  border: OutlineInputBorder()),
+                            ),
+                            MaterialButton(
+                                color: Colors.blue,
+                                child: const Text(
+                                    "Change Avatar Image from Gallery",
+                                    style: TextStyle(
+                                        color: Colors.white70,
+                                        fontWeight: FontWeight.bold)),
+                                onPressed: () {
+                                  pickImage();
+                                }),
+                            MaterialButton(
+                                color: Colors.blue,
+                                // minWidth: 10,
+                                // height: 10,
+                                child: const Text(
+                                    "Change Avatar Image from Camera",
+                                    style: TextStyle(
+                                        color: Colors.white70,
+                                        fontWeight: FontWeight.bold)),
+                                onPressed: () {
+                                  pickImageCamera();
+                                }),
+                            MaterialButton(
+                              onPressed: () {
+                                // Update userName string with text box contents
+                                print(_firstname);
+                                _databaseService.updateUser(
+                                    globals.userid!,
+                                    _username!,
+                                    _firstname!,
+                                    _lastname!,
+                                    _password!,
+                                    _avatar!);
+                                setState(() {
+                                  // userNameEntry = _textController.text;
+                                  // userNameEntry = _username! + " " + _password!;
+                                  // greeting = 'Hello $userNameEntry';
+                                });
+                                Navigator.pop(
+                                  context,
+                                );
+                              },
+                              color: Colors.blue,
+                              child: Text(
+                                'UPDATE',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        )),
+                  );
+                },
               ),
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Pick Image from Gallery",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    pickImage();
-                  }),
-              MaterialButton(
-                  color: Colors.blue,
-                  // minWidth: 10,
-                  // height: 10,
-                  child: const Text("Pick Image from Camera",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    pickImageCamera();
-                  }),
+
               MaterialButton(
                 color: Colors.blue,
                 child: const Text("My Orders",
@@ -220,14 +359,20 @@ class _ProfileState extends State<Profile> {
           itemBuilder: (userName, index) {
             User user = snapshot.data![index];
 
-            _avatar = user.avatar;
-            _firstname = user.firstName;
-            _lastname = user.lastName;
-            _userid = user.userID;
+            globals.useravatar = user.avatar;
+            globals.firstname = user.firstName;
+            globals.lastname = user.lastName;
+            globals.userid = user.userID;
+            globals.password = user.avatar;
 
             return ListTile(
-              title: Text(
-                "${user.userName}  ${user.firstName} ${user.lastName}",
+              title: Text("${user.userName}"),
+              subtitle: Text("${user.firstName} ${user.lastName}"),
+              leading: SizedBox(
+                width: 100,
+                height: 100,
+                child: Image.asset('assets/${user.avatar}',
+                    width: 300, height: 300),
               ),
             );
           },

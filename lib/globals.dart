@@ -9,3 +9,4 @@ int? userid;
 String? useravatar;
 String? firstname;
 String? lastname;
+String? password;
