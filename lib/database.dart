@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:burtsbites/models/cartDataModel.dart';
 import 'package:burtsbites/models/order.dart';
 import 'package:burtsbites/models/ordersProducts.dart';
 import 'package:burtsbites/models/product.dart';
@@ -70,6 +73,59 @@ class DatabaseService {
     return database;
   }
 
+
+  Future<List<CartDataModel>> getCart() async {
+    final db = await database;
+    final data = await db.query("cart");
+    print(data);
+    List<CartDataModel> cart = data
+        .map((e) => CartDataModel(
+            id: e["id"] as int,
+            productID: e["productID"] as int,
+            productName: e["productName"] as String,
+            productPrice: e["productPrice"] as double,
+            productQty: e["productQty"] as int))
+        .toList();
+    return cart;
+  }
+
+  void addCartItem(
+    int id,
+    int productID,
+    String productName,
+    double productPrice,
+    int productQty,
+
+  ) async {
+    final db = await database;
+    await db.insert(
+      "cart",
+      {
+        "id": id,
+        "productID": productID,
+        "productName": productName,
+        "productPrice": productPrice,
+        "productQty": productQty,
+      },
+    );
+  }
+
+  Future<List<User>> getUsers() async {
+    final db = await database;
+    final data = await db.query("users");
+    print(data);
+    List<User> users = data
+        .map((e) => User(
+            userID: e["userID"] as int,
+            userName: e["userName"] as String,
+            firstName: e["firstName"] as String,
+            lastName: e["lastName"] as String,
+            password: e["password"] as String,
+            avatar: e["avatar"] as String))
+        .toList();
+    return users;
+  }
+
   void addUser(
     int userID,
     String username,
@@ -135,21 +191,7 @@ class DatabaseService {
     return products;
   }
 
-  Future<List<User>> getUsers() async {
-    final db = await database;
-    final data = await db.query("users");
-    print(data);
-    List<User> users = data
-        .map((e) => User(
-            userID: e["userID"] as int,
-            userName: e["userName"] as String,
-            firstName: e["firstName"] as String,
-            lastName: e["lastName"] as String,
-            password: e["password"] as String,
-            avatar: e["avatar"] as String))
-        .toList();
-    return users;
-  }
+
 
   Future<List<Order>> getOrders(
     int? userID,
@@ -290,6 +332,19 @@ class DatabaseService {
       // String productImage,
       ) async {
     final db = await database;
+
+
+        // db.execute('''
+        //  CREATE TABLE cart (
+        //         id INTEGER PRIMARY KEY,
+        //         productID int NOT NULL,
+        //         productName char (15) NOT NULL,
+        //         productPrice float NOT NULL,
+        //         productQty int NOT NULL
+        //       )
+        //  ''');
+
+
 
 
 // db.execute('''insert into orderedProducts values(1, 6, 2, 1)''');

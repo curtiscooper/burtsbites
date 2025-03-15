@@ -1,7 +1,6 @@
 import 'package:burtsbites/createAccount.dart';
 import 'package:burtsbites/database.dart';
 import 'package:burtsbites/models/user.dart';
-import 'package:burtsbites/products.dart';
 import 'package:burtsbites/profile.dart';
 import 'package:flutter/material.dart';
 

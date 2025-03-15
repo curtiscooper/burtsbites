@@ -18,10 +18,8 @@ import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-void main() {
-  runApp(const MyApp());
-}
 
+void main() => runApp(MyApp());
 // class User {
 //   final int? id;
 //   final String name;
@@ -59,34 +57,49 @@ void main() {
 //   join(await getDatabasesPath(), 'userdata.db'),
 // );
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-  // This widget is the root of your application.
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Burts Bites',
+//       theme: ThemeData(
+//         // This is the theme of your application.
+//         //
+//         // TRY THIS: Try running your application with "flutter run". You'll see
+//         // the application has a purple toolbar. Then, without quitting the app,
+//         // try changing the seedColor in the colorScheme below to Colors.green
+//         // and then invoke "hot reload" (save your changes or press the "hot
+//         // reload" button in a Flutter-supported IDE, or press "r" if you used
+//         // the command line to start the app).
+//         //
+//         // Notice that the counter didn't reset back to zero; the application
+//         // state is not lost during the reload. To reset the state, use hot
+//         // restart instead.
+//         //
+//         // This works for code too, not just values: Most code changes can be
+//         // tested with just a hot reload.
+//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+//         useMaterial3: true,
+//       ),
+//       home: const MyHomePage(title: 'Burts Bites'),
+//     );
+//   }
+// }
+
+
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Burts Bites',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Burts Bites'),
+      home: MyHomePage(title: 'Burts Bites'),
     );
   }
 }
@@ -110,19 +123,163 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _currentIndex = 0;
 
+  final List<Widget> _tabs = [
+    HomeScreen(),
+    ProductsScreen(),
+    ProfileScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: _tabs.length,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Burts Bites'),
+          bottom: TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.home), text: 'Home'),
+              Tab(icon: Icon(Icons.favorite), text: 'Products'),
+              Tab(icon: Icon(Icons.person), text: 'Profile'),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: _tabs,
+        ),
+      ),
+    );
+  }
+}
+
+// class _MyHomePageState extends State<MyHomePage> {
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final DeviceOrientation = MediaQuery.of(context).orientation;
+//     print(DeviceOrientation);
+//     return Scaffold(
+//         appBar: AppBar(
+//           title: const Text("Burts Bites"),
+//         ),
+//         body: Center(
+//             child: DeviceOrientation == Orientation.portrait
+//                 ? displayPortrait()
+//                 : displayLandscape()));
+//   }
+// }
+
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DeviceOrientation = MediaQuery.of(context).orientation;
     print(DeviceOrientation);
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Burts Bites"),
+          // title: const Text("Burts Bites"),
         ),
         body: Center(
             child: DeviceOrientation == Orientation.portrait
                 ? displayPortrait()
                 : displayLandscape()));
+  }
+}
+
+class ProductsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    
+    return Scaffold(
+        appBar: AppBar(
+          // title: const Text("Burts Bites"),
+        ),
+        body: Center(
+            child: 
+        MaterialButton(
+          color: Colors.blue,
+          child: const Text("Products",
+              style: TextStyle(
+                  color: Colors.white70, fontWeight: FontWeight.bold)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Products()),
+            );
+          },
+        ),            
+        )
+      );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child:Column(
+            children:[
+              SizedBox(
+                height: 30,
+              ),
+              // image != null ? Image.file(image!) : Text('No image selected'),
+
+              MaterialButton(
+                color: Colors.blue,
+                child: const Text("Login",
+                    style: TextStyle(
+                        color: Colors.white70, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+              ),
+              MaterialButton(
+                color: Colors.blue,
+                child: const Text("Create Account",
+                    style: TextStyle(
+                        color: Colors.white70, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CreateAccount()),
+                  );
+                },
+              ),
+              MaterialButton(
+                color: Colors.blue,
+                child: const Text("Show Users",
+                    style: TextStyle(
+                        color: Colors.white70, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ShowUsers()),
+                  );
+                },
+              ),
+
+              MaterialButton(
+                color: Colors.blue,
+                child: const Text("My Profile",
+                    style: TextStyle(
+                        color: Colors.white70, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Profile()),
+                  );
+                },
+              ),      
+            ]
+        ), 
+      
+      )
+    );
   }
 }
 
@@ -147,47 +304,17 @@ class displayPortrait extends StatelessWidget {
         //     onPressed: () {
         //       pickImageCamera();
         //     }),
+Image.asset('assets/uncle-burts-bitchin-bites-restaurant-logo.jpg', width: 100, height: 100),        
+
+Image.asset('assets/RiverviewCafe-20230217_002.jpg', width: 100, height: 100),        
+
+
         SizedBox(
           height: 30,
         ),
         // image != null ? Image.file(image!) : Text('No image selected'),
 
-        MaterialButton(
-          color: Colors.blue,
-          child: const Text("Login",
-              style: TextStyle(
-                  color: Colors.white70, fontWeight: FontWeight.bold)),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-            );
-          },
-        ),
-        MaterialButton(
-          color: Colors.blue,
-          child: const Text("Products",
-              style: TextStyle(
-                  color: Colors.white70, fontWeight: FontWeight.bold)),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Products()),
-            );
-          },
-        ),
-        MaterialButton(
-          color: Colors.blue,
-          child: const Text("Create Account",
-              style: TextStyle(
-                  color: Colors.white70, fontWeight: FontWeight.bold)),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CreateAccount()),
-            );
-          },
-        ),
+
         MaterialButton(
           color: Colors.blue,
           child: const Text("Show Users",
@@ -201,18 +328,6 @@ class displayPortrait extends StatelessWidget {
           },
         ),
 
-        MaterialButton(
-          color: Colors.blue,
-          child: const Text("My Profile",
-              style: TextStyle(
-                  color: Colors.white70, fontWeight: FontWeight.bold)),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Profile()),
-            );
-          },
-        ),
 
         MaterialButton(
           color: Colors.blue,

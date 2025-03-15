@@ -182,7 +182,9 @@ class _ProductsState extends State<Products> {
                     MaterialPageRoute(builder: (context) => ProductDetail(
                       imageName: product.productImage,
                       productName: product.productName,
-                      productDescription: product.productDesc,                      
+                      productDescription: product.productDesc,
+                      productPrice: product.productPrice,
+                      productID: product.productID,                      
                       ))                
                 );
               },

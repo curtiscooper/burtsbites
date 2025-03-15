@@ -10,3 +10,8 @@ String? useravatar;
 String? firstname;
 String? lastname;
 String? password;
+int counter = 1;
+
+void greetUser(String name) {
+  print("Hello, $name!");
+}
