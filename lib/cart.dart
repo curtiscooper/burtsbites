@@ -71,7 +71,7 @@ class _CartState extends State<Cart> {
                 print("Before run CHECKOUT");
 
                 // cartservices.displayCart(); // Call the function
-
+              _databaseService.executeStatement();
                 // cart.add
               },
             ),            
@@ -93,7 +93,7 @@ class _CartState extends State<Cart> {
 
             return ListTile(
               title: Text(
-                "${cart.productID}  ${cart.productQty} ${cart.productName} ${cart.productPrice}",
+                "${cart.id} ${cart.productID}  ${cart.productQty} ${cart.productName} ${cart.productPrice}",
               ),
             );
           },

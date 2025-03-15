@@ -409,7 +409,12 @@ class DatabaseService {
     //      ''');
 
     // db.execute('''
-    //      DELETE from users where userID = 4
+    //      DELETE from cart where id = 1
     //      ''');
+
+    // Delete ALL records from Cart
+    db.execute('''
+         DELETE from cart
+         ''');         
   }
 }

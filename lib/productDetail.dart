@@ -46,7 +46,7 @@ class ProductDetail extends StatelessWidget {
                 print("Before run addCartItem");
 
                 _databaseService.addCartItem(
-                    globals.counter, 1, '$productName', productPrice!, productID!);
+                    globals.counter, productID!, '$productName', productPrice!,1 );
                 // cartservices.addItemToCart(
                 //     1, "prodname", 1.99, 1); // Call the function
 

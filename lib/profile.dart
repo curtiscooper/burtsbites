@@ -364,7 +364,7 @@ class _ProfileState extends State<Profile> {
             globals.firstname = user.firstName;
             globals.lastname = user.lastName;
             globals.userid = user.userID;
-            globals.password = user.avatar;
+            globals.password = user.password;
 
             return ListTile(
               title: Text("${user.userName}"),
